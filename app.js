@@ -1,54 +1,25 @@
-//O principal objetivo deste desafio é fortalecer suas habilidades em lógica de programação. Aqui você deverá desenvolver a lógica para resolver o problema.
-let amigos = [];
-
-// Função para adicionar amigo
 function adicionarAmigo() {
-    const input = document.getElementById("amigo");
-    const nome = input.value.trim();
-
-    if (nome === "") {
-        alert("Por favor, digite um nome válido!");
-        return;
-    }
-
-    if (amigos.includes(nome)) {
-        alert("Esse nome já foi adicionado!");
-        input.value = "";
-        return;
-    }
-
-    // Adiciona o nome ao array
-    amigos.push(nome);
-
-    // Atualiza a lista na tela
-    atualizarLista();
-
-    // Limpa o campo de input
-    input.value = "";
-}
-
-// Função para atualizar a lista de amigos
-function atualizarLista() {
-    const lista = document.getElementById("listaAmigos");
-    lista.innerHTML = "";
-
-    amigos.forEach((amigo) => {
-        const item = document.createElement("li");
-        item.textContent = amigo;
+    const input = document.getElementById('amigo');
+    const nomeAmigo = input.value.trim();
+    if (nomeAmigo) {
+        const lista = document.getElementById('listaAmigos');
+        const item = document.createElement('li');
+        item.textContent = nomeAmigo;
         lista.appendChild(item);
-    });
-}
-
-// Função para sortear um amigo
-function sortearAmigo() {
-    if (amigos.length === 0) {
-        alert("Adicione pelo menos um amigo antes de sortear!");
-        return;
+        input.value = '';
+    } else {
+        alert9('Por favor, insira um nome válido.');
     }
-
-    const indiceSorteado = Math.floor(Math.random() * amigos.length);
-    const amigoSorteado = amigos[indiceSorteado];
-
-    const resultado = document.getElementById("resultado");
-    resultado.innerHTML = `🎉 O amigo secreto sorteado foi: <strong>${amigoSorteado}</strong>`;
 }
+function sortearAmigo() {
+    const lista = document.getElementById('listaAmigos');
+    const amigos = lista.getElementsByTagName('li');
+    if (amigos.length < 2) {
+        alert('Adicione pelo menos dois amigos para sortear.');
+        return;
+    } 
+    const nomes = Array.from(amigos).map(item => item.textContent);
+    const indiceSorteado = Math.floor(Math.random() * nomes.length);
+    const amigoSorteado = nomes[indiceSorteado];
+    document.getElementById('resultado').textContent = `Amigo sorteado: ${amigoSorteado} 🎉`;
+} 
